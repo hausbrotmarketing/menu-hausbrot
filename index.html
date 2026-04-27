@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Hausbrot – Menú</title>
+<style>
+  :root{
+    --bg:#F9F6F1;--surface:#fff;--dark:#1A1A1A;--accent:#D4621A;--accent2:#8B6914;
+    --text:#2D2D2D;--muted:#888;--tag-bg:#F0EBE3;--radius:14px;--shadow:0 2px 16px rgba(0,0,0,.07);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);font-family:'Segoe UI',system-ui,sans-serif;color:var(--text);min-height:100vh}
+
+  header{background:var(--dark);color:#fff;padding:28px 20px 20px;text-align:center;position:sticky;top:0;z-index:100}
+  .logo-icon{font-size:28px;margin-bottom:4px}
+  header h1{font-size:22px;letter-spacing:4px;font-weight:700;color:#fff}
+  header p{font-size:10px;letter-spacing:3px;color:var(--accent);margin-top:2px;text-transform:uppercase}
+
+  .search-wrap{padding:16px 16px 0;max-width:600px;margin:0 auto}
+  .search-wrap input{width:100%;padding:11px 16px;border-radius:30px;border:1.5px solid #e0d8ce;
+    background:#fff;font-size:14px;outline:none;color:var(--text);transition:.2s}
+  .search-wrap input:focus{border-color:var(--accent)}
+
+  .tabs-wrap{overflow-x:auto;padding:14px 16px 0;scrollbar-width:none;max-width:600px;margin:0 auto}
+  .tabs-wrap::-webkit-scrollbar{display:none}
+  .tabs{display:flex;gap:8px;width:max-content}
+  .tab{padding:7px 16px;border-radius:20px;border:1.5px solid #ddd;background:#fff;
+    font-size:13px;cursor:pointer;white-space:nowrap;transition:.2s;color:var(--text);font-weight:500}
+  .tab.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+
+  main{max-width:600px;margin:0 auto;padding:18px 16px 100px}
+
+  .section{margin-bottom:32px}
+  .section-title{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent2);
+    font-weight:700;margin-bottom:14px;padding-bottom:6px;border-bottom:1px solid #e5ddd2}
+
+  /* CARD SIN FOTO */
+  .card{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);
+    padding:15px;margin-bottom:12px;position:relative;transition:.2s}
+  .card:hover{box-shadow:0 4px 24px rgba(0,0,0,.11);transform:translateY(-1px)}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+  .card-name{font-size:15px;font-weight:700;line-height:1.3;flex:1}
+  .card-price{font-size:15px;font-weight:700;color:var(--accent);white-space:nowrap;margin-left:8px}
+  .card-desc{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.5}
+  .card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+  .tag{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:600;letter-spacing:.3px}
+  .tag.vegano{background:#e8f5e9;color:#2e7d32}
+  .tag.sintacc{background:#fce4ec;color:#880e4f}
+
+  /* CARD CON FOTO */
+  .card-photo{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);
+    margin-bottom:12px;position:relative;overflow:hidden;transition:.2s;display:flex;flex-direction:column}
+  .card-photo:hover{box-shadow:0 4px 24px rgba(0,0,0,.11);transform:translateY(-1px)}
+  .card-photo img{width:100%;height:180px;object-fit:cover;display:block}
+  .card-photo .card-body{padding:13px 15px 15px}
+  .card-photo .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+  .card-photo .card-name{font-size:15px;font-weight:700;line-height:1.3;flex:1}
+  .card-photo .card-price{font-size:15px;font-weight:700;color:var(--accent);white-space:nowrap;margin-left:8px}
+  .card-photo .card-desc{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.5}
+  .card-photo .card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+
+  /* BADGE */
+  .badge{position:absolute;top:10px;left:10px;font-size:10px;padding:4px 10px;
+    border-radius:20px;font-weight:700;letter-spacing:.5px;z-index:2;backdrop-filter:blur(4px)}
+  .badge.recomendado{background:rgba(212,98,26,.92);color:#fff}
+  .badge.mas-vendido{background:rgba(26,26,26,.88);color:#fff}
+  /* badge en card sin foto va arriba derecha */
+  .card > .badge{top:-8px;left:auto;right:12px;backdrop-filter:none}
+
+  /* COMBO */
+  .combo-card{background:var(--dark);color:#fff;border-radius:var(--radius);padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
+  .combo-card .card-name{color:#fff;font-size:15px;font-weight:700}
+  .combo-card .card-desc{color:#bbb;font-size:12.5px;margin-top:5px;line-height:1.5}
+  .combo-card .card-price{font-size:15px;font-weight:700;color:var(--accent)}
+  .combo-card .card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+
+  /* PLATO DEL DIA */
+  .plato-dia{background:linear-gradient(135deg,var(--accent),#b85615);color:#fff;
+    border-radius:var(--radius);padding:18px;text-align:center;margin-bottom:24px;box-shadow:var(--shadow)}
+  .plato-dia .label{font-size:10px;letter-spacing:3px;text-transform:uppercase;opacity:.8;margin-bottom:4px}
+  .plato-dia h3{font-size:18px;font-weight:700}
+  .plato-dia p{font-size:12px;opacity:.85;margin-top:4px}
+
+  .wa-fab{position:fixed;bottom:24px;right:20px;background:#25D366;color:#fff;
+    border:none;border-radius:50%;width:56px;height:56px;font-size:26px;
+    display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,.4);
+    cursor:pointer;z-index:200;transition:.2s;text-decoration:none}
+  .wa-fab:hover{transform:scale(1.08)}
+
+  .no-results{text-align:center;padding:40px;color:var(--muted);font-size:14px}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .card,.card-photo,.combo-card{animation:fadeUp .3s ease}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-icon">🌾</div>
+  <h1>HAUSBROT</h1>
+  <p>Alimentos Verdaderos</p>
+</header>
+
+<div class="search-wrap">
+  <input type="text" id="searchInput" placeholder="🔍  Buscar producto..." oninput="renderMenu()"/>
+</div>
+
+<div class="tabs-wrap">
+  <div class="tabs" id="tabs"></div>
+</div>
+
+<main id="main"></main>
+
+<a class="wa-fab" href="https://wa.me/5491100000000" target="_blank" title="Consultar por WhatsApp">💬</a>
+
+<script>
+// ============================================================
+// ✏️  CÓMO USAR ESTE MENÚ
+//
+// badge: "recomendado"  →  muestra chip naranja "⭐ Recomendado"
+// badge: "mas-vendido"  →  muestra chip oscuro  "🔥 Más vendido"
+// badge: null           →  sin badge
+//
+// foto: "https://url-de-tu-imagen.jpg"  →  muestra foto arriba
+// foto: null                            →  sin foto
+//
+// tags admitidos: "vegano", "sintacc"
+//
+// precio: null  →  muestra "Consultar"
+// ============================================================
+
+const MENU = {
+  categorias: [
+    {
+      id:"cafeteria", nombre:"Cafetería",
+      items:[
+        { nombre:"Café",                         desc:"Nuestro café de especialidad",              precio:null, tags:[],         badge:null, foto:null },
+        { nombre:"Café Cortado",                  desc:"Café con un toque de leche",               precio:null, tags:[],         badge:null, foto:null },
+        { nombre:"Café Doble / Doble Cortado",    desc:"Doble carga de café",                      precio:null, tags:[],         badge:null, foto:null },
+        { nombre:"Americano / Americano Cortado", desc:"Café largo y suave",                       precio:null, tags:[],         badge:null, foto:null },
+        { nombre:"Café con Leche",                desc:"Clásico y reconfortante",                  precio:null, tags:[],         badge:"mas-vendido", foto:null },
+        { nombre:"Cappuccino",                    desc:"Espuma cremosa sobre café",                precio:null, tags:[],         badge:null, foto:null },
+        { nombre:"Submarino",                     desc:"Chocolate caliente con leche",             precio:null, tags:[],         badge:null, foto:null },
+        { nombre:"Café Frío",                     desc:"Refrescante, servido helado",              precio:null, tags:[],         badge:"recomendado", foto:null },
+      ]
+    },
+    {
+      id:"infusiones", nombre:"Infusiones",
+      items:[
+        { nombre:"Té Clásico",    desc:"Blend tradicional",                         precio:null, tags:[],       badge:null, foto:null },
+        { nombre:"Té con Limón",  desc:"Cítrico y refrescante",                    precio:null, tags:[],       badge:null, foto:null },
+        { nombre:"Té con Leche",  desc:"Suave y cremoso",                          precio:null, tags:[],       badge:null, foto:null },
+        { nombre:"Té Saborizado", desc:"Variedades del día, consultá",             precio:null, tags:[],       badge:null, foto:null },
+        { nombre:"Té en Hierbas", desc:"Hierbas naturales seleccionadas",          precio:null, tags:[],       badge:null, foto:null },
+        { nombre:"Mate Cocido",   desc:"El sabor de siempre",                      precio:null, tags:[],       badge:null, foto:null },
+      ]
+    },
+    {
+      id:"jugos", nombre:"Jugos Fríos",
+      items:[
+        { nombre:"Jugo Rosa",      desc:"Pomelo, ananá, remolacha, manzana roja y limón",                                     precio:4050, tags:["vegano"], badge:"recomendado", foto:null },
+        { nombre:"Limonada",       desc:"Limón, menta, jengibre, stevia y agua",                                              precio:4050, tags:["vegano"], badge:null,          foto:null },
+        { nombre:"Jugo Orange",    desc:"Naranja, zanahoria y limón",                                                         precio:4050, tags:["vegano"], badge:null,          foto:null },
+        { nombre:"Jugo Grün",      desc:"Espinaca, kale, manzana verde, pepino, apio y limón",                               precio:4050, tags:["vegano"], badge:null,          foto:null },
+        { nombre:"Jugo Violett",   desc:"Remolacha, naranja y jengibre",                                                     precio:4050, tags:["vegano"], badge:null,          foto:null },
+        { nombre:"Jugo Verde",     desc:"Espinaca, apio, pepino, naranja y jengibre",                                        precio:4050, tags:["vegano"], badge:null,          foto:null },
+        { nombre:"Jugo Resaca",    desc:"Limón, naranja, manzanilla, jengibre, stevia, pimienta de cayena y agua",           precio:4050, tags:["vegano"], badge:null,          foto:null },
+        { nombre:"Jugo Pomelada",  desc:"Pomelo, menta y frutilla",                                                          precio:4050, tags:["vegano"], badge:null,          foto:null },
+      ]
+    },
+    {
+      id:"desayunos", nombre:"Desayunos & Meriendas",
+      items:[
+        { nombre:"Tostadas con Queso Blanco Light", desc:"Pan artesanal, queso blanco light. Adicionales: miel, mermelada de Cuyen",     precio:null, tags:[],        badge:null,          foto:null },
+        { nombre:"Avocado Toast Hausbrot",           desc:"Tostada, palta, tomate confitado, huevo, queso con tomillo y pepinos",         precio:null, tags:[],        badge:"recomendado", foto:null },
+        { nombre:"Yogurt Orgánico con Muesli",       desc:"Yogurt orgánico con nuestro muesli artesanal",                               precio:null, tags:[],        badge:null,          foto:null },
+        { nombre:"Yogurt Orgánico con Frutas",       desc:"Yogurt orgánico con frutas frescas de temporada",                            precio:null, tags:[],        badge:null,          foto:null },
+        { nombre:"Ensalada de Frutas",               desc:"Frutas frescas seleccionadas del día",                                        precio:null, tags:["vegano"], badge:null,          foto:null },
+      ]
+    },
+    {
+      id:"facturas", nombre:"Facturas",
+      items:[
+        { nombre:"Medialuna Dulce",          desc:"Harina 100% integral, margarina vegetal, azúcar orgánica, miel, huevo",  precio:1800, tags:[],  badge:"mas-vendido", foto:null },
+        { nombre:"Vigilante",                desc:"Con mermelada de membrillo artesanal",                                   precio:1800, tags:[],  badge:null,          foto:null },
+        { nombre:"Librito de Batata",        desc:"Dulce de batata, harina integral, azúcar orgánica",                     precio:1800, tags:[],  badge:null,          foto:null },
+        { nombre:"Pañuelito de Manzana",     desc:"Con manzana fresca, sin huevo",                                         precio:1800, tags:["vegano"], badge:null,   foto:null },
+        { nombre:"Volcán de Dulce de Leche", desc:"Relleno de dulce de leche casero",                                      precio:1800, tags:[],  badge:"recomendado", foto:null },
+      ]
+    },
+    {
+      id:"dulces", nombre:"Dulces Hausbrot",
+      items:[
+        { nombre:"Brownie con Dulce de Leche", desc:"Azúcar orgánica, dulce de leche, chocolate amargo, manteca",             precio:6400, tags:[],  badge:"mas-vendido", foto:null },
+        { nombre:"Muffin de Chocolate",         desc:"Harina integral orgánica, huevo, chips de chocolate",                   precio:3600, tags:[],  badge:null,          foto:null },
+        { nombre:"Alfajor de Dulce de Leche",   desc:"Dulce de leche, harina integral, aceite orgánico, coco rallado",        precio:3300, tags:[],  badge:null,          foto:null },
+        { nombre:"Alfajor de Batata",           desc:"Dulce de batata, harina integral, aceite de girasol orgánico, coco rallado", precio:3100, tags:["vegano"], badge:null, foto:null },
+      ]
+    },
+    {
+      id:"sintacc", nombre:"Sin TACC",
+      items:[
+        { nombre:"Mini Lemonie",                desc:"Postre cítrico libre de gluten",             precio:9400, tags:["sintacc"], badge:"recomendado", foto:null },
+        { nombre:"Mini Brownie",                desc:"Brownie sin gluten, húmedo y esponjoso",     precio:null, tags:["sintacc"], badge:null,          foto:null },
+        { nombre:"Alfajor de Chocolate",        desc:"Libre de gluten, relleno de chocolate",      precio:null, tags:["sintacc"], badge:null,          foto:null },
+        { nombre:"Tostadas Pan de Mandioca x3", desc:"Nuestro pan de mandioca artesanal",          precio:null, tags:["sintacc","vegano"], badge:null, foto:null },
+      ]
+    },
+    {
+      id:"tartas", nombre:"Tartas",
+      items:[
+        { nombre:"Tarta de Pollo",               desc:"Pollo, zapallito, berenjenas, cebolla, reggianito, zanahoria, morrón y mozzarella", precio:8600, tags:[], badge:null,          foto:null },
+        { nombre:"Tarta de Espinaca",             desc:"Espinaca, mozzarella y reggianito",                                               precio:7100, tags:["vegano"], badge:null,   foto:null },
+        { nombre:"Tarta de Calabaza con Almendras",desc:"Zapallo anca, ricotta, mozzarella, reggianito y almendras",                      precio:7100, tags:[],  badge:"recomendado", foto:null },
+      ]
+    },
+    {
+      id:"empanadas", nombre:"Empanadas",
+      items:[
+        { nombre:"Caprese",         desc:"Mozzarella, tomate y albahaca",                                            precio:3200, tags:["vegano"], badge:null,          foto:null },
+        { nombre:"Brócoli",         desc:"Brócoli, huevo, cebolla y reggianito",                                    precio:3200, tags:[],         badge:null,          foto:null },
+        { nombre:"Atún",            desc:"Atún, morrón, cebolla y huevo",                                           precio:3200, tags:[],         badge:null,          foto:null },
+        { nombre:"Choclo",          desc:"Choclo, zapallo anco, espinaca, morrón y cebolla",                        precio:3200, tags:["vegano"], badge:null,          foto:null },
+        { nombre:"Queso y Cebolla", desc:"Cebolla, mozzarella y reggianito",                                        precio:3200, tags:[],         badge:null,          foto:null },
+        { nombre:"Puerro y Champiñón",desc:"Puerro, champiñón, margarina y reggianito",                             precio:3200, tags:[],         badge:null,          foto:null },
+        { nombre:"Calabaza",        desc:"Zapallo, ricotta y reggianito",                                           precio:3200, tags:[],         badge:null,          foto:null },
+        { nombre:"Calabaza Vegana", desc:"Zapallo, morrón, cebolla, aceite orgánico, sésamo, chía y quinoa",        precio:3200, tags:["vegano"], badge:"recomendado", foto:null },
+        { nombre:"Pollo Teriyaki",  desc:"Pollo con salsa teriyaki casera",                                         precio:3200, tags:[],         badge:"mas-vendido", foto:null },
+        { nombre:"Carne con Salsa BBQ",desc:"Carne vacuna con salsa BBQ artesanal",                                 precio:3200, tags:[],         badge:null,          foto:null },
+      ]
+    },
+    {
+      id:"platos", nombre:"Platos",
+      items:[
+        { nombre:"Croque Monsieur de Espinaca & Mozzarella", desc:"Pan 4 cereales, espinaca, mozzarella y reggianito",                                    precio:null, tags:["vegano"], badge:null,          foto:null },
+        { nombre:"Súper Sandwich Quinoa",                    desc:"Pan de hamburguesa, medallón de quinoa, palta y untable de zanahoria",                 precio:null, tags:["vegano"], badge:"recomendado", foto:null },
+        { nombre:"Hamburguesa al Plato con Ensalada",        desc:"Hamburguesa casera con ensalada verde de temporada",                                   precio:null, tags:[],         badge:null,          foto:null },
+        { nombre:"Sandwich de Pollo",                        desc:"Sandwich con pollo y condimentos",                                                     precio:null, tags:[],         badge:null,          foto:null },
+        { nombre:"Milanesa con Queso Curry + Ensalada",      desc:"Milanesa propia, queso curry artesanal y ensalada de temporada",                       precio:null, tags:[],         badge:null,          foto:null },
+        { nombre:"Fideos con Espinaca",                      desc:"Fideos caseros con espinaca fresca y aceite de oliva",                                 precio:null, tags:["vegano"], badge:null,          foto:null },
+        { nombre:"Pizza de Verduras Asadas",                 desc:"Pre pizza, vegetales asados, salsa de tomate y pesto",                                 precio:null, tags:["vegano"], badge:null,          foto:null },
+        { nombre:"Pizza Integral de Rúcula & Olivas",        desc:"Aceitunas negras y rúcula fresca sobre base integral",                                 precio:null, tags:["vegano"], badge:null,          foto:null },
+        { nombre:"Ensalada Caesar",                          desc:"Clásica Caesar con aderezo casero",                                                    precio:null, tags:[],         badge:null,          foto:null },
+        { nombre:"Fajita de Verduras Asadas",                desc:"Tortilla integral, vegetales asados, queso con tomillo, quinoa y mayo zanahoria",       precio:null, tags:["vegano"], badge:null,          foto:null },
+        { nombre:"Wrap de Pollo",                            desc:"Tortilla con pollo y vegetales frescos",                                               precio:null, tags:[],         badge:null,          foto:null },
+        { nombre:"Tarta con Ensalada",                       desc:"Tarta a elección acompañada de ensalada verde",                                        precio:null, tags:[],         badge:null,          foto:null },
+      ]
+    },
+    {
+      id:"combos", nombre:"Combos", esCombo:true,
+      items:[
+        { nombre:"Combo Desayuno Clásico",    desc:"Café + Medialunas",                                               precio:null },
+        { nombre:"Combo Desayuno Consciente", desc:"Infusión + Tostadas + Yogurt",                                    precio:null },
+        { nombre:"Combo Almuerzo Hausbrot",   desc:"Tarta + Guarnición + Bebida — el plato completo para una pausa de verdad", precio:null },
+        { nombre:"Combo Merienda Dulce",      desc:"Café + Brownie o Budín",                                          precio:null },
+      ]
+    },
+  ]
+};
+
+// ============================================================
+
+const TAG_LABELS = { vegano:"🌿 Vegano", sintacc:"🚫G Sin TACC" };
+const BADGE_LABELS = { "recomendado":"⭐ Recomendado", "mas-vendido":"🔥 Más vendido" };
+
+let activeCategory = "all";
+
+function formatPrice(p){ return p ? "$\u00a0"+p.toLocaleString("es-AR") : "Consultar" }
+
+function buildTabs(){
+  const tabs = document.getElementById("tabs");
+  const all = document.createElement("button");
+  all.className="tab active"; all.textContent="Todos"; all.dataset.id="all";
+  all.onclick=()=>setTab("all"); tabs.appendChild(all);
+  MENU.categorias.forEach(c=>{
+    const b=document.createElement("button");
+    b.className="tab"; b.textContent=c.nombre; b.dataset.id=c.id;
+    b.onclick=()=>setTab(c.id); tabs.appendChild(b);
+  });
+}
+
+function setTab(id){
+  activeCategory=id;
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.id===id));
+  renderMenu();
+}
+
+function makeCard(it, isCombo){
+  if(isCombo){
+    const d=document.createElement("div"); d.className="combo-card";
+    d.innerHTML=`<div class="card-top"><div class="card-name">${it.nombre}</div><div class="card-price">${formatPrice(it.precio)}</div></div>${it.desc?`<div class="card-desc">${it.desc}</div>`:""}`;
+    return d;
+  }
+
+  const tagsHtml=(it.tags||[]).map(t=>`<span class="tag ${t}">${TAG_LABELS[t]||t}</span>`).join("");
+  const badgeHtml=it.badge?`<div class="badge ${it.badge}">${BADGE_LABELS[it.badge]||it.badge}</div>`:"";
+
+  if(it.foto){
+    const d=document.createElement("div"); d.className="card-photo";
+    d.innerHTML=`
+      ${badgeHtml}
+      <img src="${it.foto}" alt="${it.nombre}" loading="lazy" onerror="this.style.display='none'"/>
+      <div class="card-body">
+        <div class="card-top">
+          <div class="card-name">${it.nombre}</div>
+          <div class="card-price">${formatPrice(it.precio)}</div>
+        </div>
+        ${it.desc?`<div class="card-desc">${it.desc}</div>`:""}
+        ${tagsHtml?`<div class="card-tags">${tagsHtml}</div>`:""}
+      </div>`;
+    return d;
+  }
+
+  const d=document.createElement("div"); d.className="card";
+  d.innerHTML=`
+    ${badgeHtml}
+    <div class="card-top">
+      <div class="card-name">${it.nombre}</div>
+      <div class="card-price">${formatPrice(it.precio)}</div>
+    </div>
+    ${it.desc?`<div class="card-desc">${it.desc}</div>`:""}
+    ${tagsHtml?`<div class="card-tags">${tagsHtml}</div>`:""}`;
+  return d;
+}
+
+function renderMenu(){
+  const q=(document.getElementById("searchInput").value||"").toLowerCase().trim();
+  const main=document.getElementById("main"); main.innerHTML="";
+
+  if((activeCategory==="all"||activeCategory==="platos")&&!q){
+    const pd=document.createElement("div"); pd.className="plato-dia";
+    pd.innerHTML=`<div class="label">Menú Ejecutivo</div><h3>🍽️ Plato del Día</h3><p>Consultá a la vendedora por las opciones de hoy</p>`;
+    main.appendChild(pd);
+  }
+
+  let total=0;
+  MENU.categorias.forEach(cat=>{
+    if(activeCategory!=="all"&&activeCategory!==cat.id) return;
+    const items=(cat.items||[]).filter(it=>{
+      if(!q) return true;
+      return it.nombre.toLowerCase().includes(q)||(it.desc||"").toLowerCase().includes(q)||(it.tags||[]).some(t=>t.includes(q));
+    });
+    if(!items.length) return;
+    total+=items.length;
+    const sec=document.createElement("div"); sec.className="section";
+    sec.innerHTML=`<div class="section-title">${cat.nombre}</div>`;
+    items.forEach(it=>sec.appendChild(makeCard(it, cat.esCombo)));
+    main.appendChild(sec);
+  });
+
+  if(!total) main.innerHTML=`<div class="no-results">😕 No encontramos "<strong>${q}</strong>" en la carta.</div>`;
+}
+
+buildTabs();
+renderMenu();
+</script>
+</body>
+</html>
