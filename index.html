@@ -45,6 +45,7 @@
   .card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
   .tag{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:600;letter-spacing:.3px}
   .tag.vegano{background:#e8f5e9;color:#2e7d32}
+  .tag.vegetariano{background:#fff9e6;color:#b8860b}
   .tag.sintacc{background:#fce4ec;color:#880e4f}
 
   .card-photo{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);
@@ -161,7 +162,7 @@ const MENU = {
     {
       id:"facturas", nombre:"Facturas",
       items:[
-        { nombre:"Medialuna Dulce",          desc:"Harina 100% integral, margarina vegetal, azúcar orgánica, miel, huevo",  precio:1900, tags:[],         badge:"mas-vendido", foto:null },
+        { nombre:"Medialuna Dulce",          desc:"Harina 100% integral, margarina vegetal, azúcar orgánica, miel, huevo",  precio:1800, tags:[],         badge:"mas-vendido", foto:null },
         { nombre:"Vigilante",                desc:"Con mermelada de membrillo artesanal",                                   precio:1900, tags:[],         badge:null,          foto:null },
         { nombre:"Librito de Batata",        desc:"Dulce de batata, harina integral, azúcar orgánica",                     precio:1900, tags:[],         badge:null,          foto:null },
         { nombre:"Pañuelito de Manzana",     desc:"Con manzana fresca, sin huevo",                                         precio:1900, tags:["vegano"], badge:null,          foto:null },
@@ -197,14 +198,14 @@ const MENU = {
     {
       id:"empanadas", nombre:"Empanadas",
       items:[
-        { nombre:"Caprese",             desc:"Mozzarella, tomate y albahaca",                                        precio:3200, tags:["vegano"], badge:null,          foto:null },
+        { nombre:"Caprese",             desc:"Mozzarella, tomate y albahaca",                                        precio:3200, tags:["vegetariano"], badge:null,          foto:null },
         { nombre:"Brócoli",             desc:"Brócoli, huevo, cebolla y reggianito",                                precio:3200, tags:[],         badge:null,          foto:null },
         { nombre:"Atún",                desc:"Atún, morrón, cebolla y huevo",                                       precio:3200, tags:[],         badge:null,          foto:null },
-        { nombre:"Choclo",              desc:"Choclo, zapallo anco, espinaca, morrón y cebolla",                    precio:3200, tags:["vegano"], badge:null,          foto:null },
+        { nombre:"Choclo",              desc:"Choclo, zapallo anco, espinaca, morrón y cebolla",                    precio:3200, tags:["vegetariano"], badge:null,          foto:null },
         { nombre:"Queso y Cebolla",     desc:"Cebolla, mozzarella y reggianito",                                    precio:3200, tags:[],         badge:null,          foto:null },
         { nombre:"Puerro y Champiñón",  desc:"Puerro, champiñón, margarina y reggianito",                          precio:3400, tags:[],         badge:null,          foto:null },
         { nombre:"Calabaza",            desc:"Zapallo, ricotta y reggianito",                                       precio:3200, tags:[],         badge:null,          foto:null },
-        { nombre:"Calabaza Vegana",     desc:"Zapallo, morrón, cebolla, aceite orgánico, sésamo, chía y quinoa",   precio:3200, tags:["vegano"], badge:"recomendado", foto:null },
+        { nombre:"Calabaza Vegana",     desc:"Zapallo, morrón, cebolla, aceite orgánico, sésamo, chía y quinoa",   precio:3200, tags:["vegetariano"], badge:"recomendado", foto:null },
         { nombre:"Pollo Teriyaki",      desc:"Pollo con salsa teriyaki casera",                                     precio:3400, tags:[],         badge:"mas-vendido", foto:null },
         { nombre:"Carne con Salsa BBQ", desc:"Carne vacuna con salsa BBQ artesanal",                               precio:3400, tags:[],         badge:null,          foto:null },
       ]
@@ -212,29 +213,29 @@ const MENU = {
     {
       id:"platos", nombre:"Platos",
       items:[
-        { nombre:"Croque Monsieur de Espinaca & Mozzarella", desc:"Pan 4 cereales, espinaca, mozzarella y reggianito",                                    precio:12600, tags:["vegano"], badge:null,          foto:null },
-        { nombre:"Súper Sandwich Quinoa",                    desc:"Pan de hamburguesa, medallón de quinoa, palta y untable de zanahoria",                 precio:7300,  tags:["vegano"], badge:"recomendado", foto:null },
-        { nombre:"Hamburguesa al Plato con Ensalada",        desc:"Hamburguesa casera con ensalada verde de temporada",                                   precio:10000,  tags:[],         badge:null,          foto:null },
-        { nombre:"Sandwich de Pollo",                        desc:"Sandwich con pollo y condimentos",                                                     precio:13500,  tags:[],         badge:null,          foto:null },
-        { nombre:"Milanesa con Queso Curry + Ensalada",      desc:"Milanesa propia, queso curry artesanal y ensalada de temporada",                       precio:9200,  tags:[],         badge:null,          foto:null },
-        { nombre:"Fideos con Espinaca",                      desc:"Fideos caseros con espinaca fresca y aceite de oliva",                                 precio:8000,  tags:["vegano"], badge:null,          foto:null },
-        { nombre:"Pizza de Verduras Asadas",                 desc:"Pre pizza, vegetales asados, salsa de tomate y pesto",                                 precio:8600,  tags:["vegano"], badge:null,          foto:null },
-        { nombre:"Pizza Integral de Rúcula & Olivas",        desc:"Aceitunas negras y rúcula fresca sobre base integral",                                 precio:11500,  tags:["vegano"], badge:null,          foto:null },
+        { nombre:"Croque Monsieur de Espinaca & Mozzarella", desc:"Pan 4 cereales, espinaca, mozzarella y reggianito",                                    precio:12600, tags:["vegetariano"], badge:null,          foto:null },
+        { nombre:"Súper Sandwich Quinoa",                    desc:"Pan de hamburguesa, medallón de quinoa, palta y untable de zanahoria",                 precio:7300,  tags:["vegetariano"], badge:"recomendado", foto:null },
+        { nombre:"Hamburguesa al Plato con Ensalada",        desc:"Hamburguesa casera con ensalada verde de temporada",                                   precio:null,  tags:["vegetariano"],         badge:null,          foto:null },
+        { nombre:"Sandwich de Pollo",                        desc:"Sandwich con pollo y condimentos",                                                     precio:null,  tags:[],         badge:null,          foto:null },
+        { nombre:"Milanesa con Queso Curry + Ensalada",      desc:"Milanesa propia, queso curry artesanal y ensalada de temporada",                       precio:null,  tags:["vegetariano"],         badge:null,          foto:null },
+        { nombre:"Fideos con Espinaca",                      desc:"Fideos caseros con espinaca fresca y aceite de oliva",                                 precio:6200,  tags:["vegetariano"], badge:null,          foto:null },
+        { nombre:"Pizza de Verduras Asadas",                 desc:"Pre pizza, vegetales asados, salsa de tomate y pesto",                                 precio:8600,  tags:["vegetariano"], badge:null,          foto:null },
+        { nombre:"Pizza Integral de Rúcula & Olivas",        desc:"Aceitunas negras y rúcula fresca sobre base integral",                                 precio:null,  tags:["vegetariano"], badge:null,          foto:null },
         { nombre:"Ensalada Caesar",                          desc:"Clásica Caesar con aderezo casero",                                                    precio:13500, tags:[],         badge:null,          foto:null },
-        { nombre:"Fajita de Verduras Grilladas",             desc:"Tortilla integral, vegetales asados, queso con tomillo, quinoa y mayo zanahoria",      precio:8900,  tags:["vegano"], badge:null,          foto:null },
-        { nombre:"Wrap de Pollo",                            desc:"Tortilla con pollo y vegetales frescos",                                               precio:13500,  tags:[],         badge:null,          foto:null },
-        { nombre:"Tarta con Ensalada",                       desc:"Tarta a elección acompañada de ensalada verde",                                        precio:9000,  tags:[],         badge:null,          foto:null },
+        { nombre:"Fajita de Verduras Asadas",                desc:"Tortilla integral, vegetales asados, queso con tomillo, quinoa y mayo zanahoria",      precio:null,  tags:["vegetariano"], badge:null,          foto:null },
+        { nombre:"Wrap de Pollo",                            desc:"Tortilla con pollo y vegetales frescos",                                               precio:8900,  tags:[],         badge:null,          foto:null },
+        { nombre:"Tarta con Ensalada",                       desc:"Tarta a elección acompañada de ensalada verde",                                        precio:null,  tags:["vegetariano"],         badge:null,          foto:null },
       ]
     },
     {
       id:"combos", nombre:"Promos", esCombo:true,
       items:[
-        { nombre:"Mañana Clásica",    desc:"Café mediano para llevar + 2 Facturas",  precio:6800 },
+        { nombre:"Mañana Clásica",    desc:"Café mediano para llevar + 2 Facturas",  precio:6200 },
         { nombre:"Salado al Paso",    desc:"Agua + 2 Empanadas",                     precio:7800 },
-        { nombre:"Algo Dulce",        desc:"Café mediano para llevar + Muffin",      precio:6600 },
-        { nombre:"Dulce Intenso",     desc:"Café mediano para llevar + Brownie",     precio:8800 },
-        { nombre:"Desayuno Completo", desc:"Café doble en el local + 2 Facturas",   precio:7700 },
-        { nombre:"Merienda Dulce",    desc:"Café doble en el local + Muffin",        precio:7600 },
+        { nombre:"Algo Dulce",        desc:"Café mediano para llevar + Muffin",      precio:6400 },
+        { nombre:"Dulce Intenso",     desc:"Café mediano para llevar + Brownie",     precio:8500 },
+        { nombre:"Desayuno Completo", desc:"Café doble en el local + 2 Facturas",   precio:7000 },
+        { nombre:"Merienda Dulce",    desc:"Café doble en el local + Muffin",        precio:7000 },
       ]
     },
   ]
@@ -242,7 +243,7 @@ const MENU = {
 
 // ============================================================
 
-const TAG_LABELS = { vegano:"🌿 Vegano", sintacc:"🚫G Sin TACC" };
+const TAG_LABELS = { vegano:"🌿 Vegano", vegetariano:"🥗 Vegetariano", sintacc:"🚫G Sin TACC" };
 const BADGE_LABELS = { "recomendado":"⭐ Recomendado", "mas-vendido":"🔥 Más vendido" };
 
 let activeCategory = "all";
